@@ -19,6 +19,9 @@ def is_prime(num):
 
 
 def test_is_prime():
+    '''
+    Test pentru is_prime
+    '''
     assert is_prime(7) == True
     assert is_prime(10) == False
     assert is_prime(1) == False
@@ -39,10 +42,14 @@ def toate_numerele_sunt_neprime(lst):
     return True
 
 def test_toate_numerele_sunt_neprime():
+    '''
+    Test pentru toate_numerele_sunt_prime
+    '''
     assert toate_numerele_sunt_neprime([16]) is True
     assert toate_numerele_sunt_neprime([10,4,8]) is True
     assert toate_numerele_sunt_neprime([2,3,5,7]) is False
     assert toate_numerele_sunt_neprime([12,2,3]) is False
+test_toate_numerele_sunt_neprime()
 
 #7.Toate numerele sunt neprime
 def get_longest_all_not_prime(lst):
@@ -60,11 +67,15 @@ def get_longest_all_not_prime(lst):
     return subsecventaMax
 
 def test_get_longest_all_not_prime():
+    '''
+    Test pentru get_longest_all_not_prime
+    '''
     assert get_longest_all_not_prime([]) == []
     assert get_longest_all_not_prime([2,10,20,12,4])==[10,20,12,4]
     assert get_longest_all_not_prime([2,3,5])==[]
     assert get_longest_all_not_prime([2,5,10])==[10]
     assert get_longest_all_not_prime([2,10,20,12,8,5,7])==[10,20,12,8]
+test_get_longest_all_not_prime()
 
 
 def media_numerelor(lst):
@@ -84,6 +95,9 @@ def media_numerelor(lst):
     return media
 
 def test_media_numerelor():
+    '''
+    Test pentru media_numerelor
+    '''
     assert media_numerelor([]) == 0
     assert media_numerelor([2,3,4]) == 3
     assert media_numerelor([18,20,5,12]) == 13.75
@@ -92,7 +106,7 @@ test_media_numerelor()
 
 def media_e_mai_mica(lst, valoare):
     '''
-    Verifica daca media este media este mai mica decat valoarea citita
+    Verifica daca media este mai mica decat valoarea citita
     :param lst: lista de numere intregi
     :param valoare: valoarea cu care se compara media : float
     :return: True, daca media numerelor este mai mica decat valoarea citita, False in caz contrar
@@ -102,6 +116,9 @@ def media_e_mai_mica(lst, valoare):
     return True
 
 def test_media_e_mai_mica():
+    '''
+    Test pentru media_e_mai_mica
+    '''
     assert media_e_mai_mica([2,3,4],4.0) is True
     assert media_e_mai_mica([18,20,5,12],5.0) is False
     assert media_e_mai_mica([3,4,5],6.5) is True
@@ -124,6 +141,9 @@ def get_longest_average_below(lst, average):
    return subsecventaMax
 
 def test_get_longest_average_below():
+    '''
+    Test pentru get_longest_average_below
+    '''
     assert get_longest_average_below([], 4.0) == []
     assert get_longest_average_below([4], 4.0) == [4]
     assert get_longest_average_below([3, 6], 4.0) == [3]
@@ -132,11 +152,59 @@ def test_get_longest_average_below():
     assert get_longest_average_below([8, 9, 11, 1, 2, 3, 5, 6, 7, 13, 19, 23, 17], 4.0) == [1, 2, 3, 5, 6, 7]
 test_get_longest_average_below()
 
+
+def toate_numerele_sunt_pare(lst):
+    '''
+        Verifica daca toate elementele dintr-o lista sunt pare
+        :param lst: lista de numere intregi
+        :return: True, daca toate elementele din lis sunt pare, False in caz contrar
+        '''
+
+    for num in lst:
+        if num%2 != 0:
+            return False
+    return True
+
+def test_toate_numerele_sunt_pare():
+    '''
+    Test pentru toate_numerele_sunt_pare
+    '''
+    assert toate_numerele_sunt_neprime([2,4,6]) is True
+    assert toate_numerele_sunt_neprime([5,10,11]) is False
+    assert toate_numerele_sunt_neprime([16]) is True
+
+
+#10. Toate numerele sunt pare
+def get_longest_all_even(lst: list[int]):
+    '''
+    Determina cea mai lunga subsecventa de numere pare
+    :param lst: lista de numere intregi
+    :return: cea mai lunga subsecventa de numere pare
+    '''
+
+    subsecventaMax = []
+    for i in range(len(lst)):
+        for j in range(i, len(lst)):
+            if toate_numerele_sunt_pare(lst[i:j+1]) is True and len(lst[i:j+1]) > len(subsecventaMax):
+                subsecventaMax = lst[i:j+1]
+    return subsecventaMax
+
+def test_get_longest_all_even():
+    '''
+    Test pentru get_longest_all_even
+    '''
+    assert get_longest_all_even([36, 11, 12, 28, 26, 19]) == [12, 28, 26]
+    assert get_longest_all_even([36, 14, 12, 25, 23, 11]) == [36, 14, 12]
+    assert get_longest_all_even([35, 11, 15, 23, 26, 19]) == [26]
+    assert get_longest_all_even([36, 10, 12, 28, 26, 19]) == [36, 10, 12, 28, 26]
+test_get_longest_all_even()
+
 def PrintMenu():
     print('1. Citire lista')
     print('2. Determinare cea mai lunga subsecventa in care numerele sunt neprime')
     print('3. Determinare cea mai lunga subsecventa in care media numerelor este mai mica decat o valoare citita')
-    print('4. Iesire')
+    print('4. Determinare cea mai lunga subsecventa in care numerele sunt pare')
+    print('5. Iesire')
 
 def citireLista():
     lst = []
@@ -153,6 +221,7 @@ def main():
     test_is_prime()
     test_get_longest_average_below()
     test_get_longest_all_not_prime()
+    test_get_longest_all_even()
     lst=[]
     while True:
         PrintMenu()
@@ -165,6 +234,8 @@ def main():
             average = float(input("Dati valoarea: "))
             print(get_longest_average_below(lst, average))
         elif optiune == "4":
+            print(get_longest_all_even(lst))
+        elif optiune == "5":
             break
         else:
             print("Optiune gresita! Reincercati!")
